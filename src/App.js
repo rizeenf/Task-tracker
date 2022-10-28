@@ -36,7 +36,7 @@ function App() {
     setTasks(tasks.filter((task) => task.val !== val))
   }
   return (
-    <div className="container">
+    <div className="container" >
       <Header />
       {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} /> : 'No task available'}
     </div>
