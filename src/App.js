@@ -32,13 +32,23 @@ function App() {
 
   ])
 
+  // Delete task
   const deleteTask = (val) => {
     setTasks(tasks.filter((task) => task.val !== val))
+    console.log('Deleting', val);
   }
+
+  // Set Reminder
+  const setReminder = (val) =>{
+    setTasks(tasks.map((task) => task.val === val ? { ...task, reminder: !task.reminder } : task ))
+
+    console.log(`Change reminder ${val}`);
+  }
+
   return (
     <div className="container" >
       <Header />
-      {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} /> : 'No task available'}
+      {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} setReminder={setReminder} /> : 'No task available'}
     </div>
   );
 }
