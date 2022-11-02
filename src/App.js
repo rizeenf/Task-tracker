@@ -1,41 +1,63 @@
 import Header from './components/Header'
 import Tasks from './components/Tasks'
-import { useState } from 'react'
+import AddTask from './components/AddTask'
+import { useState, useEffect } from 'react'
 
 
 function App() {
-  const [tasks, setTasks] = useState([
-    {
-        id: 1,
-        val:'Meeting at office',
-        date: '25 Okt 2022, 22:10',
-        reminder: true,
-    },
-    {
-        id: 2,
-        val:'Go to gym',
-        date: '26 Okt 2022, 15:10',
-        reminder: true,
-    },
-    {
-        id: 3,
-        val:'Study english',
-        date: '15 Okt 2022, 01:10',
-        reminder: false,
-    },
-    {
-        id: 4,
-        val:'Create a task',
-        date: '29 Okt 2022, 20:10',
-        reminder: true,
-    },
+  const [showAddButton, setAddButton] = useState(false)
+  const [tasks, setTasks] = useState([])
+  // Fetch
 
-  ])
+  useEffect(() => {
+    const getVal = async () => {
+      const tasksServer = await fetchVal()
+      setTasks(tasksServer)
+    }
+
+    getVal()
+  }, [])
+
+  // Fetch Data
+  const fetchVal = async() => {
+    const resp = await fetch('http://localhost:5000/tasks')
+    const data = await resp.json()
+
+    return data
+  }
+
+
+
+  // Add Task
+  const addTask = async (task) => {
+    const resp = await fetch('http://localhost:5000/tasks', {
+      method : 'POST',
+      headers : {
+        'Content-type': 'application/json'
+      },
+      body : JSON.stringify(task),
+    })
+
+    const data = await resp.json()
+
+    setTasks([...tasks, data])
+
+    // const id = Math.floor(Math.random() * 10000) + 1
+
+    // const newTask = {id, ...task}
+    // setTasks([...tasks,newTask])
+  }
+
 
   // Delete task
-  const deleteTask = (val) => {
-    setTasks(tasks.filter((task) => task.val !== val))
-    console.log('Deleting', val);
+  const deleteTask = async (id) => {
+    await fetch(`http://localhost:5000/tasks/${id}`,{
+      method : 'DELETE'
+    })
+
+
+    setTasks(tasks.filter((task) => task.id !== id))
+    console.log('Deleting', id);
   }
 
   // Set Reminder
@@ -47,7 +69,8 @@ function App() {
 
   return (
     <div className="container" >
-      <Header />
+      <Header onAdd={() => setAddButton(!showAddButton)} setAdd={showAddButton} />
+      {showAddButton && <AddTask onAdd={addTask}/>}
       {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} setReminder={setReminder} /> : 'No task available'}
     </div>
   );
