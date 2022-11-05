@@ -9,20 +9,20 @@
     {
       "val": "College",
       "date": "Friday",
-      "reminder": false,
+      "reminder": true,
       "id": 2
     },
     {
-      "val": "Go to gym",
-      "date": "Saturday",
-      "reminder": true,
-      "id": 3
-    },
-    {
       "val": "Reading a book",
-      "date": "Monday",
+      "date": "Sunday",
       "reminder": true,
       "id": 4
+    },
+    {
+      "val": "Bicycling",
+      "date": "Sunday",
+      "reminder": true,
+      "id": 5
     }
   ]
 }
