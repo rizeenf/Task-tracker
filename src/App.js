@@ -99,12 +99,16 @@ function App() {
         <Router>
             <div className="container" >
               <Header onAdd={() => setAddButton(!showAddButton)} setAdd={showAddButton} />
-              {showAddButton && <AddTask onAdd={addTask}/>}
+              <Routes>
+              <Route path='/' element={
+                <>
+                {showAddButton && <AddTask onAdd={addTask}/>}
 
-              {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} setReminder={setReminder} /> : ('No task available')} 
-          <Routes>
-              <Route path='/about' element={<About />} />
-          </Routes>
+                {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} setReminder={setReminder} /> : ('No task available')} 
+              </>
+              }/>
+              <Route path='/about' element={<About/>} />
+              </Routes>
               <Footer />
             </div>
         </Router>

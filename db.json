@@ -3,13 +3,13 @@
     {
       "val": "Meeting at Starbucks",
       "date": "Sunday",
-      "reminder": true,
+      "reminder": false,
       "id": 1
     },
     {
       "val": "College",
       "date": "Friday",
-      "reminder": true,
+      "reminder": false,
       "id": 2
     },
     {
@@ -23,6 +23,12 @@
       "date": "Sunday",
       "reminder": true,
       "id": 5
+    },
+    {
+      "val": "Task Tracker",
+      "date": "Saturday",
+      "reminder": true,
+      "id": 6
     }
   ]
 }
